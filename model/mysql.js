@@ -44,8 +44,18 @@ DB.prototype.sayHi = function () {
 	return 'Hi! I`m DB!';
 }
 
-DB.prototype.query = function ( callback ) {
-	connection.query('SELECT * FROM user', function ( err, results ) {
+DB.prototype.query = function ( fields, table, callback ) {
+	connection.query('SELECT '+ fields +' FROM '+ table, function ( err, results ) {
+		if ( err ) {
+			throw err;
+		}
+		callback( results );
+		// console.log(results);
+	});
+};
+
+DB.prototype.queryById = function ( fields, table, callback ) {
+	connection.query('SELECT '+ fields +' FROM '+ table,  function ( err, results ) {
 		if ( err ) {
 			throw err;
 		}

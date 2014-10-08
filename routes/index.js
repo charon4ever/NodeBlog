@@ -26,7 +26,7 @@ router.get('/login', function ( req, res ) {
 	admin
 */
 router.get('/admin-index', function ( req, res ) {
-	DB.query(function ( results ) {
+	DB.query('*', 'user', function ( results ) {
 		res.render('admin-index', {
 			title: 'NodeBlog后台管理',
 			entry: results
@@ -44,8 +44,12 @@ router.get('/admin-user-new', function ( req, res ) {
 
 //编辑用户
 router.get('/admin-user-edit', function ( req, res ) {
-	res.render('admin-user-edit', {
-		title: '编辑用户'
+	console.log(req.query.id);
+	DB.queryById('*', 'user', function ( results ) {
+		res.render('admin-user-edit', {
+			title: '编辑用户',
+			entry: results
+		});
 	});
 });
 
