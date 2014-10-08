@@ -1,0 +1,25 @@
+extends layout
+block append content
+	div#content.content-admin
+		p 用户列表
+			button(type='button').btn.btn-primary.btn-sm.pull-right 添加用户
+		table.table.table-striped.table-entryList
+			thead
+				tr
+					th ID
+					th 用户名
+					th 邮箱
+					th 描述
+					th.actions 操作
+			tbody
+				- for ( var i = 0, len = entry.length; i < len; i++)
+					tr
+						td= entry[i].id
+						td= entry[i].uname
+						td= entry[i].email
+						td= entry[i].description
+						td
+							div.btn-group.btn-group-sm
+								a(href='#').btn.btn-link 查看
+								a(href='/admin-user-edit?id=entry[i].id').btn.btn-link 编辑
+								a(href='#').btn.btn-link 回收站

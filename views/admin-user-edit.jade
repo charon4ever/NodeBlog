@@ -1,0 +1,16 @@
+//- admin-user-edit.jade
+extends layout
+block append content
+	div#content.content-admin
+		p 编辑用户
+		form(role="form")
+			div.form-group
+				label(for='user-nikename') 用户昵称
+				input(type='text', placeholder='请输入昵称').form-control#user-nikename
+			div.form-group
+				label(for='email') 邮箱
+				input(type='text', placeholder='请输入邮箱').form-control#user-email
+			div.form-group
+				label(for='user-description') 描述
+				textarea(rows='3', placeholder='请输入描述').form-control
+			button(type='submit').btn.btn-primary 提交

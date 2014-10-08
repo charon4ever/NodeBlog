@@ -50,3 +50,44 @@ body {
 .user-list li span {
 	padding: 10px;
 }
+
+
+
+.table-entryList .actions {
+	width: 180px;
+	text-align: center;
+}
+
+.table-entryList tbody tr td:last-child {
+	text-align: center;
+}
+
+
+/*.table-entryList {
+	width: 100%;
+	border-spacing: 0;
+	border-collapse: collapse;
+	font-size: 14px;
+}
+
+.table-entryList th,
+.table-entryList td {
+	padding: 0 10px;
+}
+
+.table-entryList thead tr {
+	height: 30px;
+	line-height: 30px;
+	border-bottom: 1px solid #ddd;
+}
+
+.table-entryList tbody tr {
+	height: 50px;
+}
+
+.table-entryList tbody td {
+}
+
+.table-entryList tr:nth-child(even) {
+	background-color: #eee;
+}*/
