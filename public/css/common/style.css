@@ -1,0 +1,52 @@
+body {
+	height: 1000px;
+}
+
+
+
+#content {
+	margin: 70px auto 0;
+	max-width: 1000px;
+}
+
+.form-signin .form-control {
+	height: 44px;
+}
+
+.form-signin input[name='username'] {
+	border-bottom-left-radius: 0;
+	border-bottom-right-radius: 0;
+}
+
+.form-signin input[type='password'] {
+	margin-top: -1px;
+	border-top-left-radius: 0;
+	border-top-right-radius: 0;
+}
+
+.form-signin .btn {
+	margin-top: 10px;
+}
+
+#footer {
+	margin-top: 50px;
+	height: 80px;
+	line-height: 80px;
+	border-top: 1px solid #ccc;
+	text-align: center;
+}
+
+
+/*
+	index
+*/
+
+.user-list li {
+	height: 50px;
+	line-height: 50px;
+	border-bottom: 1px solid #ccc;
+}
+
+.user-list li span {
+	padding: 10px;
+}
