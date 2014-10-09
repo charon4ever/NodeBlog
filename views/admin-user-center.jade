@@ -2,17 +2,16 @@
 extends layout
 block append content
 	div#content.content-admin
-		p 编辑用户
+		p 用户中心
 			a(href='admin-index').btn.btn-primary.btn-sm.pull-right 返回用户列表
 		form(role="form", method='post', action='admin-user-edit')
 			div.form-group
 				label(for='user-nikename') 用户昵称
-				input(type='text', name='nikename', value='#{ entry.uname }').form-control#user-nikename
+				input(type='text', name='nikename', readonly='true', value='#{ entry.uname }').form-control#user-nikename
 			div.form-group
 				label(for='email') 邮箱
-				input(type='text', name='email', value='#{ entry.email }').form-control#user-email
+				input(type='text', name='email', readonly='true', value='#{ entry.email }').form-control#user-email
 			div.form-group
 				label(for='user-description') 描述
-				textarea(rows='3', name='description').form-control #{ entry.description }
-			input(type='hidden', name='id', value='#{ entry.id }')
-			button(type='submit').btn.btn-primary 提交
+				textarea(rows='3', name='description', readonly='true').form-control #{ entry.description }
+			//- button(type='submit').btn.btn-primary 提交

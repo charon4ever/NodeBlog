@@ -40,10 +40,17 @@ function DB () {
 
 }
 
+
+// test
 DB.prototype.sayHi = function () {
 	return 'Hi! I`m DB!';
 }
 
+
+// 数据库查询
+// fields 查询的字段
+// table 查询的表
+// callback 回调函数
 DB.prototype.query = function ( fields, table, callback ) {
 	connection.query('SELECT '+ fields +' FROM '+ table, function ( err, results ) {
 		if ( err ) {
@@ -54,14 +61,33 @@ DB.prototype.query = function ( fields, table, callback ) {
 	});
 };
 
-DB.prototype.queryById = function ( fields, table, callback ) {
-	connection.query('SELECT '+ fields +' FROM '+ table,  function ( err, results ) {
+
+// 数据库查询ById
+// fields 查询的字段
+// table 查询的表
+// callback 回调函数
+DB.prototype.queryById = function ( fields, table, id, callback ) {
+	connection.query('SELECT '+ fields +' FROM '+ table +' WHERE id = '+ id,  function ( err, results ) {
 		if ( err ) {
 			throw err;
 		}
 		callback( results );
 		// console.log(results);
 	});
-}
+};
+
+
+// 数据库修改
+
+DB.prototype.update = function ( table, fields, id, callback ) {
+	console.log( fields );
+	connection.query('UPDATE '+ table +' SET uname = ?, email = ?, description = ? WHERE id = '+ id, fields, function ( err, results ) {
+		if ( err ) {
+			throw err;
+		}
+		// callback( results );
+		console.log(results);
+	});
+};
 
 module.exports = new DB();
