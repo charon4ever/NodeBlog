@@ -51,8 +51,8 @@ DB.prototype.sayHi = function () {
 // fields 查询的字段
 // table 查询的表
 // callback 回调函数
-DB.prototype.query = function ( fields, table, callback ) {
-	connection.query('SELECT '+ fields +' FROM '+ table, function ( err, results ) {
+DB.prototype.query = function ( sql, callback ) {
+	connection.query( sql, function ( err, results ) {
 		if ( err ) {
 			throw err;
 		}
@@ -66,27 +66,28 @@ DB.prototype.query = function ( fields, table, callback ) {
 // fields 查询的字段
 // table 查询的表
 // callback 回调函数
-DB.prototype.queryById = function ( fields, table, id, callback ) {
+/*DB.prototype.queryById = function ( fields, table, id, callback ) {
 	connection.query('SELECT '+ fields +' FROM '+ table +' WHERE id = '+ id,  function ( err, results ) {
 		if ( err ) {
 			throw err;
 		}
 		callback( results );
-		// console.log(results);
 	});
-};
+};*/
 
 
 // 数据库修改
 
-DB.prototype.update = function ( table, fields, id, callback ) {
-	console.log( fields );
-	connection.query('UPDATE '+ table +' SET uname = ?, email = ?, description = ? WHERE id = '+ id, fields, function ( err, results ) {
+DB.prototype.update = function ( sql ) {
+	console.log( sql );
+	// console.log( fields );
+	// connection.query('UPDATE '+ table +' SET uname = ?, email = ?, description = ? WHERE id = '+ id, fields, function ( err, results ) {
+	connection.query( sql, function ( err, results ) {
 		if ( err ) {
 			throw err;
 		}
 		// callback( results );
-		console.log(results);
+		// console.log(results);
 	});
 };
 

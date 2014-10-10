@@ -26,8 +26,8 @@ router.get('/login', function ( req, res ) {
 	admin
 */
 router.get('/admin-index', function ( req, res ) {
-	req.setEncoding('utf-8');
-	DB.query('*', 'user', function ( results ) {
+	// req.setEncoding('utf-8');
+	DB.query( 'SELECT * FROM user', function ( results ) {
 		res.render('admin-index', {
 			title: 'NodeBlog后台管理',
 			entry: results
@@ -43,10 +43,11 @@ router.get('/admin-user-new', function ( req, res ) {
 	});
 });
 
-//编辑用户
+
+// 编辑用户 -- 编辑页面
 router.get('/admin-user-edit', function ( req, res ) {
-	console.log(req.query.id);
-	DB.queryById( '*', 'user', req.query.id, function ( results ) {
+	// console.log(req.query.id);
+	DB.query( 'SELECT * FROM user WHERE id = ' + req.query.id, function ( results ) {
 		res.render('admin-user-edit', {
 			title: '编辑用户',
 			entry: results[0]
@@ -55,10 +56,10 @@ router.get('/admin-user-edit', function ( req, res ) {
 });
 
 
-
+// 用户中心
 router.get('/admin-user-center', function ( req, res ) {
-	console.log(req.query);
-	DB.queryById('*', 'user', req.query.id, function ( results ) {
+	// console.log(req.query);
+	DB.query( 'SELECT * FROM user WHERE id = ' + req.query.id, function ( results ) {
 		res.render('admin-user-center', {
 			title: '用户中心',
 			entry: results[0]
@@ -66,11 +67,12 @@ router.get('/admin-user-center', function ( req, res ) {
 	});
 });
 
-
+// 编辑用户 -- 执行编辑
 router.post('/admin-user-edit', function ( req, res ) {
-	console.log(req.body);
-	DB.update('user', [req.body.nikename, req.body.email, req.body.description], req.body.id);
-	DB.queryById('*', 'user', req.body.id, function ( results ) {
+	// console.log(req.body);
+	// DB.update('user', [req.body.nikename, req.body.email, req.body.description], req.body.id);
+	DB.update('UPDATE user SET uname = "' + req.body.nikename + '", email = "' + req.body.email + '", description = "' + req.body.description + '" WHERE id = ' + req.body.id );
+	DB.query( 'SELECT * FROM user WHERE id = ' + req.body.id, function ( results ) {
 		res.render('admin-user-center', {
 			title: '操作成功!',
 			entry: results[0]
