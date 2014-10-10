@@ -2,7 +2,7 @@ extends layout
 block append content
 	div#content.content-admin
 		p 用户列表
-			button(type='button').btn.btn-primary.btn-sm.pull-right 添加用户
+			a(href='/admin-user-new').btn.btn-primary.btn-sm.pull-right 添加用户
 		table.table.table-striped.table-entryList
 			thead
 				tr
