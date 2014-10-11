@@ -77,7 +77,6 @@ DB.prototype.query = function ( sql, callback ) {
 
 
 // 数据库修改
-
 DB.prototype.update = function ( sql ) {
 	console.log( sql );
 	// console.log( fields );
@@ -88,6 +87,16 @@ DB.prototype.update = function ( sql ) {
 		}
 		// callback( results );
 		// console.log(results);
+	});
+};
+
+
+// 添加数据
+DB.prototype.insert = function ( sql ) {
+	connection.query( sql, function ( err, results ) {
+		if ( err ) {
+			throw err;
+		}
 	});
 };
 

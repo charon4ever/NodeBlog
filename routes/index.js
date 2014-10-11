@@ -24,6 +24,7 @@ router.get('/login', function ( req, res ) {
 
 /*
 	admin
+	=============================
 */
 router.get('/admin-index', function ( req, res ) {
 	// req.setEncoding('utf-8');
@@ -36,10 +37,32 @@ router.get('/admin-index', function ( req, res ) {
 });
 
 
-//添加用户
+// 添加用户
 router.get('/admin-user-new', function ( req, res ) {
 	res.render('admin-user-new', {
 		title: '添加用户'
+	});
+});
+
+
+// 添加用户 - 执行添加
+router.post('/admin-user-new', function ( req, res ) {
+	console.log(req.body);
+	DB.insert( 'INSERT INTO user(uname, email, description) VALUES("' + req.body.nikename + '", "' + req.body.email + '", "' + req.body.description + '")' );
+	res.render('success', {
+		title: '操作成功!'
+	});
+});
+
+
+// 用户中心
+router.get('/admin-user-center', function ( req, res ) {
+	// console.log(req.query);
+	DB.query( 'SELECT * FROM user WHERE id = ' + req.query.id, function ( results ) {
+		res.render('admin-user-center', {
+			title: '用户中心',
+			entry: results[0]
+		});
 	});
 });
 
@@ -55,17 +78,6 @@ router.get('/admin-user-edit', function ( req, res ) {
 	});
 });
 
-
-// 用户中心
-router.get('/admin-user-center', function ( req, res ) {
-	// console.log(req.query);
-	DB.query( 'SELECT * FROM user WHERE id = ' + req.query.id, function ( results ) {
-		res.render('admin-user-center', {
-			title: '用户中心',
-			entry: results[0]
-		});
-	});
-});
 
 // 编辑用户 -- 执行编辑
 router.post('/admin-user-edit', function ( req, res ) {
