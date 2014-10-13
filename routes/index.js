@@ -17,8 +17,8 @@ router.get('/', function(req, res) {
 });
 
 router.get('/login', function ( req, res ) {
-	// req.session.views = 1;
-	// console.log( req.session.views );
+	req.session.views = 1;
+	console.log( req.session.views );
 	console.log( 'Cookies:' + req.cookies );
 	console.log( 'Sessions:' + req.session );
 	res.render('login', { title: '登录' });

@@ -29,17 +29,18 @@ app.use('/users', users);
 
 app.use(session({
     keys: ['key', 'YondWeb'],
-    secureProxy: true
+    // secureProxy: true
 }));
 
 
 
-app.use(function ( req, res, next ) {
-    console.log( req );
+app.get('/login', function ( req, res, next ) {
+/*    console.log( req );
     var n = req.session.views || 0;
     req.session.views = ++n;
     console.log( n );
-    res.end( n + 'views' );
+    res.end( n + 'views' );*/
+    console.log('ss');
 });
 
 
