@@ -5,6 +5,8 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
+var session = require('cookie-session');
+
 var routes = require('./routes/index');
 var users = require('./routes/users');
 
@@ -19,11 +21,27 @@ app.set('view engine', 'jade');
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
+app.use(cookieParser('YondWeb'));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 app.use('/users', users);
+
+app.use(session({
+    keys: ['key', 'YondWeb'],
+    secureProxy: true
+}));
+
+
+
+app.use(function ( req, res, next ) {
+    console.log( req );
+    var n = req.session.views || 0;
+    req.session.views = ++n;
+    console.log( n );
+    res.end( n + 'views' );
+});
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
