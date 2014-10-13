@@ -28,7 +28,45 @@ router.get('/login', function ( req, res ) {
 */
 router.get('/admin-index', function ( req, res ) {
 	// req.setEncoding('utf-8');
-	DB.query( 'SELECT * FROM user', function ( results ) {
+
+	// console.log( req.query );
+
+	if ( req.query.action == 'delete' ) {
+		// console.log('删除数据!');
+		// console.log(req.query.id);
+		DB.delete('DELETE FROM user WHERE id = ' + req.query.id);
+		res.render('success', {
+			title: '操作成功!'
+		});
+
+	} else {
+		DB.query( 'SELECT * FROM user', function ( results ) {
+			res.render('admin-index', {
+				title: 'NodeBlog后台管理',
+				entry: results
+			});
+		});
+	}
+});
+
+
+// 删除用户
+/*router.get('/admin-index', function ( req, res ) {
+	// DB.delete();
+	console.log(req.query.id);
+	console.log(req.query.action);
+	res.render('admin-index', {
+		title: 'NodeBlog后台管理',
+		entry: results
+	});
+});*/
+
+
+// 搜索
+router.post('/admin-index', function ( req, res ) {
+	console.log( req.body.action );
+	console.log( req.body.keywords );
+	DB.query('SELECT * FROM user WHERE uname like "%'+ req.body.keywords +'%" or email like "%'+ req.body.keywords +'%"', function ( results ) {
 		res.render('admin-index', {
 			title: 'NodeBlog后台管理',
 			entry: results

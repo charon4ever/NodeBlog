@@ -11,7 +11,7 @@ html
 	body
 		//- header
 		block header
-			div.navbar.navbar-inverse.navbar-fixed-top(role='navigation')
+			div.navbar.navbar-default.navbar-fixed-top(role='navigation')
 				div.container
 					div.navbar-header
 						button.navbar-toggle.collapsed(type='button', data-toggle='collapse', data-target='.navbar-collapse')
@@ -28,6 +28,12 @@ html
 								a(href='#') About
 							li
 								a(href='#') Contact
+						form(method='post', action='admin-index')
+							div.input-group.navbar-search
+									input(type='text', name='keywords', placeholder='search').form-control
+									input(type='hidden', name='action', value='search')
+									span.input-group-btn
+										button(type='submit').btn.btn-default 搜索
 
 		//- content
 		block content

@@ -100,4 +100,14 @@ DB.prototype.insert = function ( sql ) {
 	});
 };
 
+
+// 删除数据
+DB.prototype.delete = function ( sql ) {
+	connection.query( sql, function ( err, results ) {
+		if ( err ) {
+			throw err;
+		}
+	});
+}
+
 module.exports = new DB();

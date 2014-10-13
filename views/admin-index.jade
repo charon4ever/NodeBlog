@@ -22,4 +22,4 @@ block append content
 							div.btn-group.btn-group-sm
 								a(href='/admin-user-center?id=#{ entry[i].id }').btn.btn-link 查看
 								a(href='/admin-user-edit?id=#{ entry[i].id }').btn.btn-link 编辑
-								a(href='#').btn.btn-link 回收站
+								a(href='/admin-index?id=#{ entry[i].id }&action=delete').btn.btn-link 删除
