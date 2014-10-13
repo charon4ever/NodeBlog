@@ -1,10 +1,10 @@
 //- admin-user-edit.jade
-extends layout
+extends ../layout
 block append content
 	div#content.content-admin
 		p 用户中心
-			a(href='admin-index').btn.btn-primary.btn-sm.pull-right 返回用户列表
-		form(role="form", method='post', action='admin-user-edit')
+			a(href='/admin/').btn.btn-primary.btn-sm.pull-right 返回用户列表
+		form(role="form", method='post', action='/user-edit')
 			div.form-group
 				label(for='user-nikename') 用户昵称
 				input(type='text', name='nikename', readonly='true', value='#{ entry.uname }').form-control#user-nikename

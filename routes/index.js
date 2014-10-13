@@ -23,10 +23,22 @@ router.get('/login', function ( req, res ) {
 
 
 /*
+	folder Test
+	==============================
+*/
+router.get('/foldertest/test', function ( req, res ) {
+	res.render('foldertest/test', {
+		title: 'folder test!'
+	});
+});
+
+
+
+/*
 	admin
 	=============================
 */
-router.get('/admin-index', function ( req, res ) {
+router.get('/admin', function ( req, res ) {
 	// req.setEncoding('utf-8');
 
 	// console.log( req.query );
@@ -35,13 +47,13 @@ router.get('/admin-index', function ( req, res ) {
 		// console.log('删除数据!');
 		// console.log(req.query.id);
 		DB.delete('DELETE FROM user WHERE id = ' + req.query.id);
-		res.render('success', {
+		res.render('admin/success', {
 			title: '操作成功!'
 		});
 
 	} else {
 		DB.query( 'SELECT * FROM user', function ( results ) {
-			res.render('admin-index', {
+			res.render('admin/', {
 				title: 'NodeBlog后台管理',
 				entry: results
 			});
@@ -63,11 +75,11 @@ router.get('/admin-index', function ( req, res ) {
 
 
 // 搜索
-router.post('/admin-index', function ( req, res ) {
+router.post('/admin', function ( req, res ) {
 	console.log( req.body.action );
 	console.log( req.body.keywords );
 	DB.query('SELECT * FROM user WHERE uname like "%'+ req.body.keywords +'%" or email like "%'+ req.body.keywords +'%"', function ( results ) {
-		res.render('admin-index', {
+		res.render('admin/', {
 			title: 'NodeBlog后台管理',
 			entry: results
 		});
@@ -76,28 +88,28 @@ router.post('/admin-index', function ( req, res ) {
 
 
 // 添加用户
-router.get('/admin-user-new', function ( req, res ) {
-	res.render('admin-user-new', {
+router.get('/admin/user-new', function ( req, res ) {
+	res.render('admin/user-new', {
 		title: '添加用户'
 	});
 });
 
 
 // 添加用户 - 执行添加
-router.post('/admin-user-new', function ( req, res ) {
+router.post('/admin/user-new', function ( req, res ) {
 	console.log(req.body);
 	DB.insert( 'INSERT INTO user(uname, email, description) VALUES("' + req.body.nikename + '", "' + req.body.email + '", "' + req.body.description + '")' );
-	res.render('success', {
+	res.render('admin/success', {
 		title: '操作成功!'
 	});
 });
 
 
 // 用户中心
-router.get('/admin-user-center', function ( req, res ) {
+router.get('/admin/user-center', function ( req, res ) {
 	// console.log(req.query);
 	DB.query( 'SELECT * FROM user WHERE id = ' + req.query.id, function ( results ) {
-		res.render('admin-user-center', {
+		res.render('admin/user-center', {
 			title: '用户中心',
 			entry: results[0]
 		});
@@ -106,10 +118,10 @@ router.get('/admin-user-center', function ( req, res ) {
 
 
 // 编辑用户 -- 编辑页面
-router.get('/admin-user-edit', function ( req, res ) {
+router.get('/admin/user-edit', function ( req, res ) {
 	// console.log(req.query.id);
 	DB.query( 'SELECT * FROM user WHERE id = ' + req.query.id, function ( results ) {
-		res.render('admin-user-edit', {
+		res.render('admin/user-edit', {
 			title: '编辑用户',
 			entry: results[0]
 		});
@@ -118,12 +130,12 @@ router.get('/admin-user-edit', function ( req, res ) {
 
 
 // 编辑用户 -- 执行编辑
-router.post('/admin-user-edit', function ( req, res ) {
+router.post('/admin/user-edit', function ( req, res ) {
 	// console.log(req.body);
 	// DB.update('user', [req.body.nikename, req.body.email, req.body.description], req.body.id);
 	DB.update('UPDATE user SET uname = "' + req.body.nikename + '", email = "' + req.body.email + '", description = "' + req.body.description + '" WHERE id = ' + req.body.id );
 	DB.query( 'SELECT * FROM user WHERE id = ' + req.body.id, function ( results ) {
-		res.render('admin-user-center', {
+		res.render('admin/user-center', {
 			title: '操作成功!',
 			entry: results[0]
 		});

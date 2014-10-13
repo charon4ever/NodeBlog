@@ -1,10 +1,10 @@
 //- admin-user-new.jade
-extends layout
+extends ../layout
 block append content
 	div#content.content-admin
 		p 添加用户
-			a(href='admin-index').btn.btn-primary.btn-sm.pull-right 返回用户列表
-		form(role="form", method='post', action='admin-user-new')
+			a(href='/admin/').btn.btn-primary.btn-sm.pull-right 返回用户列表
+		form(role="form", method='post', action='/admin/user-new')
 			div.form-group
 				label(for='user-nikename') 用户昵称
 				input(type='text', name='nikename', placeholder='请输入昵称').form-control#user-nikename
