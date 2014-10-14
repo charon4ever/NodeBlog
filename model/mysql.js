@@ -6,7 +6,7 @@ var mysql = require('mysql'),
 		port: '3306',
 		user: 'root',
 		password: 'admin',
-		database: 'myNodeMysql'
+		database: 'NodeBlog'
 	},
 	connection;
 

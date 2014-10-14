@@ -70,7 +70,8 @@ router.get('/foldertest/test', function ( req, res ) {
 	admin
 	=============================
 */
-router.get('/admin', authorize, function ( req, res ) {
+// router.get('/admin', authorize, function ( req, res ) {
+router.get('/admin', function ( req, res ) {
 	// req.setEncoding('utf-8');
 
 	// console.log( req.query );
