@@ -2,6 +2,16 @@ var express = require('express');
 var router = express.Router();
 
 
+// 登录验证
+function authorize ( req, res, next ) {
+	if ( !req.session.username ) {
+		res.redirect('/login');
+	} else {
+		next();
+	}
+}
+
+
 var DB = require('../model/mysql');
 
 console.log(DB.sayHi());
@@ -13,8 +23,21 @@ console.log(DB.sayHi());
 
 /* GET home page. */
 router.get('/', function(req, res) {
-  res.render('index', { title: 'NodeBlog' });
+	req.session.username = 'Gallop123';
+	console.log( req.cookies );
+	console.log('-----------------');
+	console.log( req.session );
+	// req.session.destroy();
+	// console.log( req.session );
+	res.render('index', { title: 'NodeBlog' });
 });
+
+
+/*router.post('/', function () {
+	req.session.username = 'Gallop';
+	console.log( req.session.username );
+});*/
+
 
 router.get('/login', function ( req, res ) {
 	req.session.views = 1;
@@ -22,6 +45,11 @@ router.get('/login', function ( req, res ) {
 	console.log( 'Cookies:' + req.cookies );
 	console.log( 'Sessions:' + req.session );
 	res.render('login', { title: '登录' });
+});
+
+router.post('/login', function ( req, res ) {
+	req.session.username = req.body.username;
+	console.log('登录成功' + req.session.username );
 });
 
 
@@ -42,27 +70,40 @@ router.get('/foldertest/test', function ( req, res ) {
 	admin
 	=============================
 */
-router.get('/admin', function ( req, res ) {
+router.get('/admin', authorize, function ( req, res ) {
 	// req.setEncoding('utf-8');
 
 	// console.log( req.query );
 
-	if ( req.query.action == 'delete' ) {
-		// console.log('删除数据!');
-		// console.log(req.query.id);
-		DB.delete('DELETE FROM user WHERE id = ' + req.query.id);
-		res.render('admin/success', {
-			title: '操作成功!'
-		});
-
+/*	if ( req.session.username ) {
+		console.log( '草' + req.session.username );
 	} else {
-		DB.query( 'SELECT * FROM user', function ( results ) {
-			res.render('admin/', {
-				title: 'NodeBlog后台管理',
-				entry: results
+		console.log('还木有登录哦!');
+	}*/
+
+	// authorize();
+
+	// if ( req.session.username ) {
+		if ( req.query.action == 'delete' ) {
+			// console.log('删除数据!');
+			// console.log(req.query.id);
+			DB.delete('DELETE FROM user WHERE id = ' + req.query.id);
+			res.render('admin/success', {
+				title: '操作成功!'
 			});
-		});
-	}
+
+		} else {
+			DB.query( 'SELECT * FROM user', function ( results ) {
+				res.render('admin/', {
+					title: 'NodeBlog后台管理',
+					entry: results
+				});
+			});
+		}
+	// } else {
+		// res.redirect('/login');
+	// }
+
 });
 
 
