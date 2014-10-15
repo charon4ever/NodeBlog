@@ -23,10 +23,10 @@ console.log(DB.sayHi());
 
 /* GET home page. */
 router.get('/', function(req, res) {
-	req.session.username = 'Gallop123';
-	console.log( req.cookies );
-	console.log('-----------------');
-	console.log( req.session );
+	// req.session.username = 'Gallop123';
+	// console.log( req.cookies );
+	// console.log('-----------------');
+	// console.log( req.session );
 	// req.session.destroy();
 	// console.log( req.session );
 	res.render('index', { title: 'NodeBlog' });
@@ -39,34 +39,42 @@ router.get('/', function(req, res) {
 });*/
 
 
+/*
+	登录页面
+	已经登录 ? 后台列表页 : 登录页
+*/
 router.get('/login', function ( req, res ) {
-	// req.session.views = 1;
-	// console.log( req.session.views );
-	// console.log( 'Cookies:' + req.cookies );
-	// console.log( 'Sessions:' + req.session );
-	res.render('login', { title: '登录' });
+	if ( !req.session.userid ) {
+		res.render('login', { title: '登录' });
+		// res.redirect('/login');
+	} else {
+		res.redirect('admin/');
+	}
 });
 
-router.post('/login', function ( req, res ) {
-	// req.session.username = req.body.username;
-	// console.log('登录成功' + req.session.username );
 
+/*
+	登录处理
+	登录成功 ? 后台列表页 : 登录页
+*/
+router.post('/login', function ( req, res ) {
 	DB.query('SELECT id FROM user WHERE uname = "' + req.body.username + '" and password = "' + req.body.password + '"', function ( results ) {
-		console.log( results[0] );
+		// console.log( results[0] );
 		if ( typeof results[0] == 'undefined' ) {
 			res.redirect('/login');
 		} else {
 			req.session.userid = results[0].id;
-			res.render('admin/success', {
-				title: '登录成功'
-			});
+			res.redirect('admin/');
 		}
 	});
 
 });
 
 
-// 退出登录
+/*
+	退出登录
+	销毁session, 跳转到登录页
+*/
 router.get('/admin/logout', function ( req, res ) {
 	req.session.destroy();
 	res.redirect('/login');
@@ -153,8 +161,11 @@ router.post('/admin', function ( req, res ) {
 });
 
 
-// 添加用户
-router.get('/admin/user-new', function ( req, res ) {
+/*
+	添加用户
+	已经登录 ? 添加用户页面 : 登录页
+*/
+router.get('/admin/user-new', authorize, function ( req, res ) {
 	res.render('admin/user-new', {
 		title: '添加用户'
 	});
@@ -171,8 +182,11 @@ router.post('/admin/user-new', function ( req, res ) {
 });
 
 
-// 用户中心
-router.get('/admin/user-center', function ( req, res ) {
+/*
+	用户中心
+	已经登录 ? 用户中心页面 : 登录页
+*/
+router.get('/admin/user-center', authorize, function ( req, res ) {
 	// console.log(req.query);
 	DB.query( 'SELECT * FROM user WHERE id = ' + req.query.id, function ( results ) {
 		res.render('admin/user-center', {
@@ -184,7 +198,11 @@ router.get('/admin/user-center', function ( req, res ) {
 
 
 // 编辑用户 -- 编辑页面
-router.get('/admin/user-edit', function ( req, res ) {
+/*
+	用户信息编辑页面
+	已经登录 ？ 编辑页面 : 登录页
+*/
+router.get('/admin/user-edit', authorize, function ( req, res ) {
 	// console.log(req.query.id);
 	DB.query( 'SELECT * FROM user WHERE id = ' + req.query.id, function ( results ) {
 		res.render('admin/user-edit', {
