@@ -4,6 +4,12 @@ body {
 
 
 
+.btn-logout {
+	margin-top: 10px;
+}
+
+
+
 #content {
 	margin: 70px auto 0;
 	max-width: 1000px;

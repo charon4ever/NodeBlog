@@ -4,7 +4,7 @@ var router = express.Router();
 
 // 登录验证
 function authorize ( req, res, next ) {
-	if ( !req.session.username ) {
+	if ( !req.session.userid ) {
 		res.redirect('/login');
 	} else {
 		next();
@@ -40,16 +40,36 @@ router.get('/', function(req, res) {
 
 
 router.get('/login', function ( req, res ) {
-	req.session.views = 1;
-	console.log( req.session.views );
-	console.log( 'Cookies:' + req.cookies );
-	console.log( 'Sessions:' + req.session );
+	// req.session.views = 1;
+	// console.log( req.session.views );
+	// console.log( 'Cookies:' + req.cookies );
+	// console.log( 'Sessions:' + req.session );
 	res.render('login', { title: '登录' });
 });
 
 router.post('/login', function ( req, res ) {
-	req.session.username = req.body.username;
-	console.log('登录成功' + req.session.username );
+	// req.session.username = req.body.username;
+	// console.log('登录成功' + req.session.username );
+
+	DB.query('SELECT id FROM user WHERE uname = "' + req.body.username + '" and password = "' + req.body.password + '"', function ( results ) {
+		console.log( results[0] );
+		if ( typeof results[0] == 'undefined' ) {
+			res.redirect('/login');
+		} else {
+			req.session.userid = results[0].id;
+			res.render('admin/success', {
+				title: '登录成功'
+			});
+		}
+	});
+
+});
+
+
+// 退出登录
+router.get('/admin/logout', function ( req, res ) {
+	req.session.destroy();
+	res.redirect('/login');
 });
 
 
@@ -70,8 +90,8 @@ router.get('/foldertest/test', function ( req, res ) {
 	admin
 	=============================
 */
-// router.get('/admin', authorize, function ( req, res ) {
-router.get('/admin', function ( req, res ) {
+router.get('/admin', authorize, function ( req, res ) {
+// router.get('/admin', function ( req, res ) {
 	// req.setEncoding('utf-8');
 
 	// console.log( req.query );
