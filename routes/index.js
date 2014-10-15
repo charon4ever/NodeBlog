@@ -39,6 +39,8 @@ router.get('/', function(req, res) {
 });*/
 
 
+
+
 /*
 	登录页面
 	已经登录 ? 后台列表页 : 登录页
@@ -80,6 +82,56 @@ router.get('/admin/logout', function ( req, res ) {
 	res.redirect('/login');
 });
 
+
+/*
+	注册页面
+	已登录 ？ 列表页 ： 注册页
+*/
+router.get('/signup', function ( req, res ) {
+	if ( !req.session.userid ) {
+		res.render('signup', {
+			title: '注册'
+		});
+	} else {
+		res.redirect('admin/');
+	}
+});
+
+
+/*
+	注册处理
+	首先验证用户名是否合法、是否重复， 然后验证密码是否合法， 两次密码是否一致
+	如果无误， 则跳转到操作成功页， 否则跳转到注册页
+*/
+router.post('/signup', function ( req, res ) {
+
+
+/*	// 注册验证逻辑
+	if ( req.body.username 用户名不合法 ) {
+		//redirect
+	} else if ( req.body.password1 != req.body.password2 ) {
+		//redirect
+		// 两次密码不一致
+	} else if ( req.body.password2 密码不合法) {
+		//redirect
+	} else {
+		// 检测用户名是否重复
+	}*/
+
+	DB.query('SELECT id FROM user WHERE uname = "' + req.body.username + '"', function ( results ) {
+		if ( typeof results[0] == 'undefined' ) {
+			//用户名不重复， 继续
+			//req.body.username
+			//req.body.password1
+			DB.insert('INSERT INTO user(uname, password) VALUES("' + req.body.username + '", "' + req.body.password1+ '")');
+			res.redirect('/admin/success');
+		} else {
+			console.log('用户名重复');
+			//redirect 重新注册
+			res.redirect('/signup');
+		}
+	});
+});
 
 
 /*
@@ -223,6 +275,14 @@ router.post('/admin/user-edit', function ( req, res ) {
 			title: '操作成功!',
 			entry: results[0]
 		});
+	});
+});
+
+
+// 操作成功页面
+router.get('/admin/success', function ( req, res ) {
+	res.render('admin/success', {
+		title: '操作成功！'
 	});
 });
 

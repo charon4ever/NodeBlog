@@ -1,0 +1,13 @@
+//- signup.jade
+//- extends layout
+block header
+block content
+	div.container-fluid.container-login
+		div.alert.alert-info 呵呵
+		form.form-signin(role='form', method='post')
+			h2.form-signin-heading please sigup
+			input.form-control(type='text', placeholder='username', name='username', required, autofocus)
+			input.form-control(type='password', placeholder='password', name='password1')
+			input.form-control(type='password', placeholder='password', name='password2')
+			button.btn.btn-lg.btn-primary.btn-block(type='submit') 注册
+block footer
