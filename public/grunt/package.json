@@ -1,1 +1,14 @@
-package.json
+{
+	"name": "qianduan.im",
+	"description": "wordpress theme",
+	"repository": "",
+	"version": "0.1.0",
+	"devDependencies": {
+		"grunt": "*",
+		"grunt-contrib-less": "*",
+		"grunt-contrib-concat": "*",
+		"grunt-css": "*",
+		"grunt-contrib-uglify": "*",
+		"grunt-contrib-watch": "*"
+	}
+}
