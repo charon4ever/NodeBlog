@@ -1,7 +1,36 @@
 body {
-	height: 1000px;
+	/*height: 1000px;*/
 }
 
+* {
+	margin: 0;
+	padding: 0;
+}
+
+.fl {
+	float: left;
+}
+
+.fr {
+	float: right;
+}
+
+#content {
+	margin-top: 70px;
+}
+
+/*
+文章列表
+*/
+
+#content .post-lists {
+	list-style: none;
+}
+
+#content .post-lists li {
+	padding: 20px 0;
+	border-bottom: 1px solid #ddd;
+}
 
 
 .btn-logout {
@@ -9,11 +38,6 @@ body {
 }
 
 
-
-#content {
-	margin: 70px auto 0;
-	max-width: 1000px;
-}
 
 .container-login {
 	margin: 50px auto 0 auto;

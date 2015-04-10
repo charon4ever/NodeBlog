@@ -1,4 +1,4 @@
-extends ../layout
+extends layout
 block append content
 	div#content.content-admin
 		p 用户列表
@@ -20,6 +20,6 @@ block append content
 						td= entry[i].description
 						td
 							div.btn-group.btn-group-sm
-								a(href='/admin/user-center?id=#{ entry[i].id }').btn.btn-link 查看
-								a(href='/admin/user-edit?id=#{ entry[i].id }').btn.btn-link 编辑
-								a(href='/admin/?id=#{ entry[i].id }&action=delete').btn.btn-link 删除
+								a(href='/admin/user-center?id=#{ entry[i]._id }').btn.btn-link 查看
+								a(href='/admin/user-edit?id=#{ entry[i]._id }').btn.btn-link 编辑
+								a(href='/admin/?id=#{ entry[i]._id }&action=delete').btn.btn-link 删除
