@@ -1,0 +1,47 @@
+doctype html
+html
+	head
+		title= title
+		meta(name='viewport', content='width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no')
+		meta(name='keywords', content='NodeBlog')
+		meta(name='description', content='NodeBlog is a blog system, base on NodeJs, Express, jade, Bootstrap, AngularJs and mysql')
+		link(rel='stylesheet', href='/css/common/bootstrap.min.css')
+		link(rel='stylesheet', href='/css/common/bootstrap-theme.min.css')
+		link(rel='stylesheet', href='/css/common/style.css')
+	body
+		//- header
+		block header
+			div.navbar.navbar-default.navbar-fixed-top(role='navigation')
+				div.container
+					div.navbar-header
+						button.navbar-toggle.collapsed(type='button', data-toggle='collapse', data-target='.navbar-collapse')
+							span.sr-only Toggle navigation
+							span.icon-bar
+							span.icon-bar
+							span.icon-bar
+						a.navbar-brand(href='#') NodeBlog
+					div.collapse.navbar-collapse
+						ul.nav.navbar-nav
+							li.active
+								a(href='#') Home
+						form(method='get', action='/admin/')
+							div.input-group.navbar-search
+									input(type='text', name='keywords', placeholder='search').form-control
+									input(type='hidden', name='action', value='search')
+									span.input-group-btn
+										button(type='submit').btn.btn-default 搜索
+						a(href='/admin/logout').btn.btn-primary.btn-sm.pull-right.btn-logout 退出
+
+		//- content
+		block content
+		
+		//- footer
+		block footer
+			P#footer &copy; 2014 - 2015
+
+		//- js
+		block js
+			script(type='text/javascript', src='/js/lib/jquery-2.1.1.js')
+			script(type='text/javascript', src='/js/lib/bootstrap.min.js')
+
+				

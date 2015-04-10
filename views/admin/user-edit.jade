@@ -1,5 +1,5 @@
 //- admin-user-edit.jade
-extends ../layout
+extends layout
 block append content
 	div#content.content-admin
 		p 编辑用户
@@ -14,5 +14,5 @@ block append content
 			div.form-group
 				label(for='user-description') 描述
 				textarea(rows='3', name='description').form-control #{ entry.description }
-			input(type='hidden', name='id', value='#{ entry.id }')
+			input(type='hidden', name='id', value='#{ entry._id }')
 			button(type='submit').btn.btn-primary 提交

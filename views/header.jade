@@ -1,0 +1,49 @@
+block header
+    div.navbar.navbar-default(role='navigation')
+        div.container
+            div.navbar-header
+                button.navbar-toggle.collapsed(type='button', data-toggle='collapse', data-target='.navbar-collapse')
+                    span.sr-only Toggle navigation
+                    span.icon-bar
+                    span.icon-bar
+                    span.icon-bar
+                a.navbar-brand(href='#') NodeBlog
+            div.collapse.navbar-collapse
+                ul.nav.navbar-nav
+                    li.active
+                        a(href='/') 首页
+                    li
+                        a(href='/about') 关于
+                    li
+                        a(href='/contact') 下载
+                    li.dropdown
+                        a.dropdown-toggle(href="#", data-toggle="dropdown", role="button", aria-expanded="false") 更多
+                            span.caret
+                        ul.dropdown-menu(role="menu")
+                            li
+                                a(href="#") 更新历史
+                                a(href="#") 文档
+                                a(href="#") FAQ
+                            li.divider
+                            li.dropdown-header 联系
+                            li
+                                a(href="#") Email
+                                a(href="#") Weibo
+                                a(href="#") GitHub
+                form.navbar-form.navbar-left(role="search", method='post', action='/admin/')                
+                    div.input-group
+                        input(type='text', name='keywords', placeholder='search').form-control
+                        input(type='hidden', name='action', value='search')
+                        span.input-group-btn
+                            button(type='submit').btn.btn-default 搜索
+                ul.nav.navbar-nav.navbar-right
+                    li
+                        a(href="#") Twitter
+                    li
+                        a(href="#") Weibo
+                    li
+                        a(href="#") GitHub
+    
+
+
+
